@@ -1,0 +1,19 @@
+include: package:very_good_analysis/analysis_options.yaml
+
+analyzer:
+  exclude:
+    - build/**
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - android/**
+    - ios/**
+  errors:
+    invalid_annotation_target: ignore
+
+linter:
+  rules:
+    public_member_api_docs: false
+    lines_longer_than_80_chars: false
+    # Sintaxis nueva de Dart 3.13 (`const new(...)`, `class X ...;`); se adopta cuando todo el tooling la soporte.
+    unnecessary_type_name_in_constructor: false
+    empty_container_bodies: false
