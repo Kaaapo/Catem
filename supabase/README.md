@@ -50,6 +50,22 @@ Reglas:
 - Toda tabla nueva nace con `enable row level security` en la misma migración.
 - `db push` y `config push` los ejecuta quien mergea a `develop`, después de probar con `db reset` en local.
 
+## Migraciones actuales
+
+| Archivo | Ticket | Contenido |
+|---|---|---|
+| `20260924000001_init_profiles.sql` | CATEM-15/21/25 | PostGIS, `profiles` (con consentimiento), `profile_field_visibility`, RLS, trigger `updated_at`, trigger que crea el perfil al registrarse |
+| `20260924000002_device_tokens.sql` | CATEM-18 | `device_tokens` (FCM) con RLS |
+| `20260924000003_storage_buckets.sql` | CATEM-80 | buckets `avatars` y `recommendations_media` privados + 8 policies por carpeta `{user_id}/` |
+| `20260924000004_minimum_age.sql` | CATEM-99 | check `profiles_minimum_age_check` (18+) |
+
+## Config de auth (`config.toml`)
+
+- `site_url` y `additional_redirect_urls` apuntan a los deep links `catem://auth-callback/...`.
+- Confirmación de email activa; OTP de 8 dígitos por email (valor del proyecto cloud).
+- Proveedores Google/Apple y Twilio (SMS) están **desactivados** hasta tener credenciales. Los secretos van por variables de entorno (`SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET`, etc.), nunca en el archivo.
+- Antes de editar: `supabase config pull` para partir del estado remoto; después: `supabase config diff` y `supabase config push`.
+
 ## Proyecto cloud
 
 - Ref: `ggnbkxnvofjpjyxrksjq` (org Katchdev, región us-east-2). `supabase link --project-ref ggnbkxnvofjpjyxrksjq` tras `supabase login`.
