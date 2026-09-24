@@ -24,3 +24,11 @@ final class NetworkFailure extends Failure {
 final class CacheFailure extends Failure {
   const CacheFailure([super.message = 'Error de cache local']);
 }
+
+final class PermissionFailure extends Failure {
+  const PermissionFailure([super.message = 'Permiso denegado']);
+}
+
+final class ValidationFailure extends Failure {
+  const ValidationFailure([super.message = 'Datos invalidos']);
+}

@@ -10,6 +10,9 @@ abstract final class Env {
     'SUPABASE_PUBLISHABLE_KEY',
   );
 
+  // Solo true cuando el build trae google-services.json / GoogleService-Info.plist.
+  static const bool pushEnabled = bool.fromEnvironment('PUSH_ENABLED');
+
   static AppEnvironment get current => AppEnvironment.values.byName(_envName);
 
   static bool get isProd => current == AppEnvironment.prod;
