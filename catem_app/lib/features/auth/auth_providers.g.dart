@@ -103,7 +103,7 @@ final class GoogleAuthDataSourceProvider
 }
 
 String _$googleAuthDataSourceHash() =>
-    r'5aab317651108508f861cce0a070ef071bea1e2f';
+    r'493a04503497cb6dae3c1c77269d691ebf42d466';
 
 @ProviderFor(appleAuthDataSource)
 final appleAuthDataSourceProvider = AppleAuthDataSourceProvider._();
@@ -192,7 +192,7 @@ final class AuthRepositoryProvider
   }
 }
 
-String _$authRepositoryHash() => r'e0e30e772f2f97be51ca8f16fd3ec4c47f27c455';
+String _$authRepositoryHash() => r'b5d004173f419f73a6bb83299f41ee47e347c0ee';
 
 @ProviderFor(signUpUseCase)
 final signUpUseCaseProvider = SignUpUseCaseProvider._();

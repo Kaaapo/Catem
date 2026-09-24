@@ -48,7 +48,7 @@ final class AuthRedirectProvider
   }
 }
 
-String _$authRedirectHash() => r'd40823cc1b26c9aab803e9b4eb96fe5df59713c5';
+String _$authRedirectHash() => r'9a50724432831aa258cdae2f9b20efd35f25db1a';
 
 @ProviderFor(appRouter)
 final appRouterProvider = AppRouterProvider._();
