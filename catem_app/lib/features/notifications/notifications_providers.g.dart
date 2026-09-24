@@ -153,7 +153,7 @@ final class PushNotificationsRepositoryProvider
 }
 
 String _$pushNotificationsRepositoryHash() =>
-    r'89358baed162a63dfaf91165ad87be034b0b175e';
+    r'828609e5cbe628b1d8aa3a3900417e931496b245';
 
 @ProviderFor(registerDeviceForPushUseCase)
 final registerDeviceForPushUseCaseProvider =
