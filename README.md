@@ -33,6 +33,25 @@ export ANDROID_HOME="$(brew --prefix)/share/android-commandlinetools"
 export PATH="$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/cmdline-tools/latest/bin:$HOME/.pub-cache/bin"
 ```
 
+### 1b. Herramientas en Windows
+
+En Windows solo se compila **Android** (iOS requiere macOS + Xcode); el CI se encarga de los builds de iOS. Abre PowerShell **como usuario normal** (no admin) salvo donde se indique.
+
+| Herramienta | Instalación (PowerShell) | Nota |
+|---|---|---|
+| Git | `winget install --id Git.Git` | Al terminar: `git config --global core.autocrlf true` y `git config --global core.longpaths true` (los builds de Android superan el límite de 260 caracteres). |
+| Modo desarrollador | `start ms-settings:developers` → activar *Developer Mode* | Obligatorio: Flutter necesita symlinks para los plugins. |
+| Flutter 3.x stable | Descargar el zip de https://docs.flutter.dev/get-started/install/windows y extraer en `C:\src\flutter` (sin espacios ni caracteres especiales) → agregar `C:\src\flutter\bin` al PATH del usuario | Verificar con `flutter doctor`. No instalar en `C:\Program Files`. |
+| Android Studio | https://developer.android.com/studio | Incluye JDK y SDK. En el SDK Manager instalar *Android SDK Platform 36*, *Build-Tools 36*, *Platform-Tools*, *Emulator* y crear un emulador (Pixel). Luego `flutter doctor --android-licenses`. |
+| Docker Desktop (WSL 2) | 1) PowerShell **como admin**: `wsl --install` y reiniciar. 2) `winget install --id Docker.DockerDesktop` | En Settings > General dejar *Use the WSL 2 based engine*. Requiere virtualización activa en la BIOS. |
+| Scoop + Supabase CLI | `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` → `irm get.scoop.sh \| iex` → `scoop bucket add supabase https://github.com/supabase/scoop-bucket.git` → `scoop install supabase` | Luego `supabase login` (abre el navegador). No usar `npm i -g supabase`, no está soportado. |
+| Node + Firebase CLI + FlutterFire (solo CATEM-18) | `winget install --id OpenJS.NodeJS.LTS` → `npm i -g firebase-tools` → `dart pub global activate flutterfire_cli` | Agregar `%LOCALAPPDATA%\Pub\Cache\bin` al PATH. |
+| GitHub CLI (opcional) | `winget install --id GitHub.cli` → `gh auth login` | Configura las credenciales de git automáticamente. |
+
+Cierra y vuelve a abrir PowerShell después de cambiar el PATH. `flutter doctor` debe mostrar Flutter, Android toolchain y Android Studio en verde (Chrome y Visual Studio pueden quedar en rojo, no se usan).
+
+Si Flutter no encuentra el JDK: `flutter config --jdk-dir "C:\Program Files\Android\Android Studio\jbr"`. Si no encuentra el SDK: `flutter config --android-sdk "$env:LOCALAPPDATA\Android\Sdk"`.
+
 ### 2. Clonar y levantar el backend local
 
 ```bash
@@ -44,6 +63,8 @@ supabase status     # imprime API URL y keys locales
 ```
 
 Servicios locales: API `http://127.0.0.1:54321` · Studio `http://127.0.0.1:54323` · Mailpit (correos de auth) `http://127.0.0.1:54324` · Postgres `127.0.0.1:54322` (user/pass `postgres`).
+
+Los mismos comandos funcionan en PowerShell (Docker Desktop debe estar abierto y con el motor WSL 2 corriendo antes de `supabase start`).
 
 ### 3. Configurar y correr la app
 
@@ -65,6 +86,8 @@ flutter run --dart-define-from-file=env/dev.json
 flutter analyze          # debe decir "No issues found"
 ./run_tests.sh           # flutter test --coverage + umbral 70 % en domain/data
 ```
+
+En Windows: `cp` es `Copy-Item env\dev.json.example env\dev.json` y el script de tests es `.\run_tests.ps1` (requiere Python 3 en el PATH: `winget install --id Python.Python.3.12`).
 
 ## Flujo de trabajo
 
