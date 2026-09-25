@@ -1,0 +1,8 @@
+# macOS / Windows
+.DS_Store
+Thumbs.db
+
+# Editores
+.idea/
+.vscode/
+*.swp

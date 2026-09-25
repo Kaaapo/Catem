@@ -1,0 +1,21 @@
+# Finales de linea LF en todas las plataformas (evita diffs falsos en *.g.dart desde Windows).
+* text=auto eol=lf
+
+# Los scripts de Windows si van con CRLF.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.jks binary
+*.keystore binary
+*.p8 binary
+*.p12 binary
+*.ttf binary
+*.otf binary
+*.pdf binary

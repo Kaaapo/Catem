@@ -325,6 +325,19 @@ max_frequency = "5s"
 # Use an external OAuth provider. The full list of providers are: `apple`, `azure`, `bitbucket`,
 # `discord`, `facebook`, `github`, `gitlab`, `google`, `keycloak`, `linkedin_oidc`, `notion`, `twitch`,
 # `twitter`, `x`, `slack`, `spotify`, `workos`, `zoom`.
+# CATEM-21: login social nativo (signInWithIdToken). Para activarlo:
+#  1. Google Cloud Console > Credentials: crear OAuth client IDs Web, Android e iOS.
+#  2. Poner el client id Web en client_id (se pueden listar varios separados por coma) y
+#     exportar SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET antes de `supabase config push`.
+#  3. Pasar a la app --dart-define GOOGLE_WEB_CLIENT_ID (y GOOGLE_IOS_CLIENT_ID en iOS).
+[auth.external.google]
+enabled = false
+client_id = ""
+secret = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET)"
+skip_nonce_check = true
+
+# Apple es obligatorio en iOS si hay login con Google (regla de App Store). Requiere Apple
+# Developer: Services ID en client_id y la key .p8 firmada como secret.
 [auth.external.apple]
 enabled = false
 client_id = ""
